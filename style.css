@@ -33,6 +33,7 @@ button {
 
 /* cтиль для блока задач */
 .style-task{
+	display: flex;
 	
 }
 
