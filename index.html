@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
+	<script src="javascript.js" defer></script>
 	<title>Список дел</title>
 </head>
 <body>
@@ -12,49 +13,6 @@
 		<input type="text" id='taskInput'>
 		<button id="taskAdd">Добавить задачу</button>
 	</div>
-	<div class="task-list" id="taskList">
-
-	</div>
-
-<script>
-	const taskInput = document.getElementById('taskInput'); //нашли элемент ввода
-	const taskAdd = document.getElementById('taskAdd'); //нашли элемент кнопки Добавить задачу
-	const taskList = document.getElementById('taskList'); //нашли элемент списка задач
-
-	// Добавляем обработчик события для кнопки
-	taskAdd.addEventListener('click',function(){
-		console.log("Кнопка нажата.Добавляем задачу");
-		// создаем новый элемент под задачу
-		const taskText = taskInput.value.trim();
-		// если ввод пустой
-		if (taskText === ''){
-			// добавляем класс подсветки
-			taskInput.classList.add('empty-input');
-			// проверка
-			console.log('пусто');
-		}else{
-			// создаем div коробку под задачу
-			const newTask = document.createElement('div');
-			// создаем параграф для текста задачи
-			const newTaskText = document.createElement('p')
-			// добавляем туда текст равной значению переменной taskText
-			newTaskText.textContent = taskText;
-			// создаю чек бокс для задачи
-			const newTaskCheck = document.createElement('input');//поле input
-			newTaskCheck.type = 'checkbox';//определяю тип поля checkbox
-			const newTaskButton = document.createElement('button');
-			//кнопка удалить задачу
-			newTaskButton.textContent = 'Удалить задачу'
-			//добавляю тект, кнопку и чекбокс в div-коробку задачи
-			newTask.append(newTaskCheck, newTaskText, newTaskButton);
-			//проверка, чтро задача добавлена в див
-			console.log('Задача добавлена в div');
-			//добавляю див коробку задачи в див списка дел
-			taskList.append(newTask);
-			//проверяю, что задача добавлена в див списка дел
-			console.log('Задача добавлена на страницу');
-		}
-	})
-</script>
+	<div class="task-list" id="taskList"></div>
 </body>	
 </html>
