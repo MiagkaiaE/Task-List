@@ -1,0 +1,36 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	padding: 20px;
+}
+
+.new-task {
+	margin-top:20px ;
+	display: flex;
+	gap: 5%;
+}
+
+button {
+	cursor: pointer;
+	padding: 3px 8px;
+}
+
+/* Cтиль для каждой задачи */
+.task-list {
+	margin: 20px 0px;
+
+	
+}
+/* стиль для выполненной задачи */
+.task-done {
+
+}
+
+/* стиль подсветка для пустого ввода */
+.empty-input {
+	border: 1px solid red;
+}
