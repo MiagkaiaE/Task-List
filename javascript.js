@@ -8,6 +8,8 @@
 	function inputValidation(input) {
 		//получаем строку из ввода
 		const taskText = input.value.trim();
+		//сбрасываем подсветку на случай, если она горит 
+		input.classList.remove('empty-input');
 		//проверяем строку
 		if (taskText === '') {
 			input.classList.add('empty-input');// если пустая, подключаем класс empty-input
@@ -26,6 +28,7 @@
 		}
 	}
 
+	//функция для создания задачи с обработчиками событий
 	function createTask(taskText) {
 		//создаем div коробку для задачи
 		const newTask = document.createElement('div');
@@ -47,15 +50,24 @@
 		//проверка, что задача добавлена в див
 		console.log('Задача добавлена в div');
 
+		//обработчик событий для чекбокса
 		newTaskCheck.addEventListener('change', function(){
 			if (newTaskCheck.checked){
-				newTaskText.classList.add('task-done');
-				console.log("задача выполнена");
+				newTaskText.classList.add('task-done');//если стоит галочка, подключаем класс task-done
+				console.log("задача выполнена"); //проверка
 			}else {
-				newTaskText.classList.remove('task-done');
+				newTaskText.classList.remove('task-done'); //если галочку убираем, кдасс тоже снимаем
 				console.log('Галочка снята');
 			}
 		});
+
+		//обработчик событий для кнопки удалить задачу
+		newTaskButton.addEventListener('click', function () {
+			//если кнопка нажата, удаляем весь div c задачей
+			newTask.remove();
+			//проверка
+			console.log('задача удалена')
+		})
 	return newTask
 	}
 
