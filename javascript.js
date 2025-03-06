@@ -26,7 +26,28 @@
 			console.log('функция вернула текс задачи')
 			return taskText; //если не пустая, функция возвращает переменную taskText
 		}
-	}
+	};
+
+	//функция для обработчика чекбокс
+	function handleCheckboxChange(checkbox, text) {
+		if (checkbox.checked) {
+			//добавляем класс к тексту задачи
+			text.classList.add('task-done');
+			console.log("задача выполнена"); //проверка
+		} else {
+			//если галочка снята, удаляем класс с текста задачи
+			text.classList.remove('task-done');
+			console.log('Галочка снята'); //проверка
+		}
+	};
+
+	//функция для обработчика кнопки Удалить задачу
+	function handleDeleteClick(task) {
+		//если кнопка нажата, удаляем весь div c задачей
+		task.remove();
+		//проверка
+		console.log('задача удалена')
+	};
 
 	//функция для создания задачи с обработчиками событий
 	function createTask(taskText) {
@@ -51,30 +72,17 @@
 		console.log('Задача добавлена в div');
 
 		//обработчик событий для чекбокса
-		newTaskCheck.addEventListener('change', function(){
-			if (newTaskCheck.checked){
-				newTaskText.classList.add('task-done');//если стоит галочка, подключаем класс task-done
-				console.log("задача выполнена"); //проверка
-			}else {
-				newTaskText.classList.remove('task-done'); //если галочку убираем, кдасс тоже снимаем
-				console.log('Галочка снята');
-			}
-		});
+		newTaskCheck.addEventListener('change', () => handleCheckboxChange(newTaskCheck, newTaskText));
 
 		//обработчик событий для кнопки удалить задачу
-		newTaskButton.addEventListener('click', function () {
-			//если кнопка нажата, удаляем весь div c задачей
-			newTask.remove();
-			//проверка
-			console.log('задача удалена')
-		})
+		newTaskButton.addEventListener('click', () => handleDeleteClick(newTask));
 	return newTask
-	}
+	};
 
 	//функция для добавления задачи в лист задач
-	function addTaskToList(newTask, input) {
+	function addTaskToList(task, input) {
 		//добавляем задачу в лист задач
-		taskList.append(newTask);
+		taskList.append(task);
 		// проверка задача добавлена на страницу
 		console.log('Задача добавлена на страницу');
 		// очищаем поле ввода для новой задачи
@@ -82,7 +90,7 @@
 		//проверка очистки поля
 		console.log('поле очищено');
 		
-	}
+	};
 
 	taskAdd.addEventListener('click', function () {
 		//вызываем функцию для проверки ввода
@@ -90,6 +98,7 @@
 		const taskText = inputValidation(taskInput);
 
 		if (taskText) {
+			console.log('Кнопка нажата.Добавляем задачу')
 			//вызываем функцию, которая создает элементы задачи
 			//функция возвращает div коробку задачи с элементами внутри,записываем div в переменную newTask
 			const newTask = createTask(taskText);
@@ -97,5 +106,5 @@
 			addTaskToList(newTask, taskInput);
 		}
 
-	})
+	});
 })();
