@@ -26,11 +26,56 @@ body {
 	display: flex;
 	gap: 5%;
 }
+/* стиль для поля ввода */
+.new-task input[type="text"] {
+	transition: transform 0.3s, box-shadow 1s ease-in-out, border-color 1s ease-in-out; /* Плавность для всех эффектов */
+	border: 1px solid rgb(198, 197, 197); /*рамка*/
+	padding: 5px;
+	box-shadow: 0 0 0 0 rgba(211, 211, 211, 0); /* Базовое значение тени */
+	border-radius: 5px;
+}
+
+/* анимация при наведении */
+.new-task input[type="text"]:hover{
+	animation: shadowPulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes shadowPulse {
+	0% { box-shadow: 0 0 0 0 rgba(211, 211, 211, 0); }
+    25% { box-shadow: 0 0 5px 3px rgba(211, 211, 211, 0.3); } /* Мягкое начало */
+    50% { box-shadow: 0 0 10px 5px rgba(211, 211, 211, 0.6); } /* Максимальное свечение */
+    75% { box-shadow: 0 0 5px 3px rgba(211, 211, 211, 0.3); } /* Мягкое затухание */
+    100% { box-shadow: 0 0 0 0 rgba(211, 211, 211, 0); }
+}
+/* стиль при фокусе (установке курсора) */
+.new-task input[type="text"]:focus {
+	border-color: #d3d3d3; /* Менее тёмная рамка (светло-серый) */
+	box-shadow: 0 0 5px 2px rgba(211, 211, 211, 0.3); /* Постоянная бледно-серая тень */
+	outline: none; /* Убираем стандартный контур браузера */
+}
+
+/* стиль подсветка для пустого ввода */
+.new-task input[type="text"].empty-input {
+	border: 1px solid rgb(108, 107, 107);
+	padding: 5px; /* Сохраняем тот же padding, что в базовом стиле */
+	animation: shakInput 0.5s ease-in-out 2;
+	box-shadow: 0 0 0 2px rgb(139, 138, 138); /* Имитация толстой рамки через тень */
+
+}
+
+/* анимация для тряски окна при ошибке ввода */
+@keyframes shakInput {
+	0% { transform: rotate(0deg); }
+   25% { transform: rotate(-2deg); } /* Наклон налево */
+ 	50% { transform: rotate(2deg); }  /* Наклон направо */
+   75% { transform: rotate(-2deg); } /* Наклон налево */
+   100% { transform: rotate(0deg); } /* Возврат в исходное положение */
+}
 /* кнопка */
 button {
 	cursor: pointer;
 	padding: 5px 10px;
-	background: linear-gradient(45deg, #B0C4DE70, #B0C4DE80 );
+	background: linear-gradient(45deg, #B0C4DE20, #B0C4DE80 );
 	color: rgb(86, 85, 85);
 	border-radius: 5px;
 	border: none;
@@ -70,10 +115,29 @@ button:hover {
 	padding-bottom: 5px; /* Отступ снизу между содержимым и линией */
 }
 
-/* стиль подсветка для пустого ввода */
-.empty-input {
-	border: 1px solid red;
+/* стиль для чекбокса */
+
+.style-task input[type = "checkbox"] {
+	transition: transform 0.3s; /*плавность для всех спецэффектов*/
+	accent-color: #B0C4DE80; /* сменили цвет нажатого чек бокса*/
+	transform: scale(1); /* Базовый масштаб */
 }
+
+.style-task input[type = "checkbox"]:hover {
+	transform: scale(1.1); /* Увеличение чекбокса на 10% */
+}
+
+.style-task input[type="checkbox"]:checked {
+	animation: AppAndDown 0.3s;
+	
+}
+/* анимация для чекбокса */
+@keyframes AppAndDown {
+	0% { transform: translateY(0) scale(1); }
+	50% { transform: translateY(-2px) scale(1); }
+	100% { transform: translateY(0) scale(1); }
+}
+
 
 /* стиль для выполненной задачи */
 .task-done {
