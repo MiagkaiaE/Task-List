@@ -5,43 +5,78 @@
 }
 
 body {
-	padding: 20px;
-	min-height: 100vh;
-	width: 600px;
-	border: 1px solid gray;
-	text-align: center;
+	
 }
-
+/* весь список */
+.container {
+	background-color: #ffebee; /* Бледно-розовый фон */
+	padding: 20px; /* Отступы внутри контейнера */
+	max-width: 600px; /* Ограничим ширину для аккуратности */
+	margin: 0 auto; /* центрируем контейнер*/
+	border-radius: 5px;
+}
+/* для заголовка */
+.container h1 {
+	font-size: 40px;
+	color: rgb(86, 85, 85);
+	margin-bottom: 20px;
+}
+/* для блока добавить задачу */
 .new-task {
-	margin-top:20px ;
 	display: flex;
 	gap: 5%;
 }
-
+/* кнопка */
 button {
 	cursor: pointer;
-	padding: 3px 8px;
+	padding: 5px 10px;
+	background: linear-gradient(45deg, #B0C4DE70, #B0C4DE80 );
+	color: rgb(86, 85, 85);
+	border-radius: 5px;
+	border: none;
+	/* плавный переход transform */
+	transition: transform 0.3s; 
 }
 
-/* Cтиль для каждой задачи */
+/* класс для наведения на кнопку */
+button:hover {
+	transform: scale(1.1); /* Увеличение кнопки на 10% */
+}
+
+/* стиль для кнопок внутри задач */
+.style-task button {
+	margin-left: auto; /* Сдвигает кнопку списка задач к правому краю */
+}
+
+/* Cтиль для списка задач */
 .task-list {
 	margin: 20px 0px;
-
-	
-}
-/* стиль для выполненной задачи */
-.task-done {
-	text-decoration:line-through;
-	color: #00000050;
+	padding: 20px;
+	/* рамка для списка задач */
+	border: 1px solid grey;
+	border-radius: 5px;
+	min-height: 100vh;
 }
 
-/* cтиль для блока задач */
+
+/* cтиль для блока каждой задачи */
 .style-task{
-	display: flex;
-	
+	display: flex;	
+	gap: 10px;
+	align-items: center;
+	margin-bottom: 10px;
+	/* линия подчеркивания для задачи */
+	border-bottom: 1px solid gray;
+	padding-bottom: 5px; /* Отступ снизу между содержимым и линией */
 }
 
 /* стиль подсветка для пустого ввода */
 .empty-input {
 	border: 1px solid red;
+}
+
+/* стиль для выполненной задачи */
+.task-done {
+	text-decoration:line-through;
+	color: #00000050;
 }
