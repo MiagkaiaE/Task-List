@@ -3,7 +3,23 @@
 	const taskInput = document.getElementById('taskInput'); //нашли элемент ввода
 	const taskAdd = document.getElementById('taskAdd'); //нашли элемент кнопки Добавить задачу
 	const taskList = document.getElementById('taskList'); //нашли элемент списка задач
+	const containerTaskList = document.getElementById('containerTaskList');
 
+	//функция, которая определяет день месяца
+	function returnDayOfTheMonth() {
+		// получаем актуальную дату
+		const curentDate = new Date();
+		// получаем день из даты
+		const dayOfMonth = curentDate.getDate();
+		console.log(dayOfMonth);
+		return dayOfMonth;
+	}
+
+	// условие для выбора фона четного дня
+	if (returnDayOfTheMonth() % 2 === 0) {
+		containerTaskList.classList.add('even-day');
+	}
+	
 	//функция для проверки ввода
 	function inputValidation(input) {
 		//получаем строку из ввода

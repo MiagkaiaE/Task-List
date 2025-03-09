@@ -9,7 +9,7 @@ body {
 }
 /* весь список */
 .container {
-	background-color: #f6ffeb; /* Бледно-розовый фон */
+	background-color: #ebfdff; /* Бледно-голубой фон для всех дей, кроме четных*/
 	padding: 20px; /* Отступы внутри контейнера */
 	max-width: 600px; /* Ограничим ширину для аккуратности */
 	margin: 0 auto; /* центрируем контейнер*/
@@ -18,12 +18,9 @@ body {
 }
 
 .even-day {
-	background-color: #ffebee; /* Бледно-розовый фон */
+	background-color: #ffebee; /*фон для четных дней*/
 }
 
-.odd-day {
-	background-color: #ebfdff; /* Бледно-голубой фон */
-}
 /* для заголовка */
 .container h1 {
 	font-size: 40px;
