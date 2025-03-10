@@ -7,18 +7,17 @@
 	const dataToDay = document.getElementById('dataToDay');//нашли элемент для даты
 	const currentDate = new Date(); //получили сегодняшнюю дату
 	
-	//функция, которая формирует дату
-	function addData(fullData) {
-		const day = fullData.getDate().toString().padStart(2, '0');//получаем день  месяца
-		const month = (fullData.getMonth() + 1).toString
-		().padStart(2, '0'); //получаем месяц(от 0 до 1) и прибавляем 1, чтобы получить правильное число месяца
-		const year = fullData.getFullYear();//получаем год
-		const numData = `Дата: ${day}-${month}-${year}`;
-		console.log(numData);
-		return numData;
-	};
+	// функция форматирование даты
+	function formationDate(data) {
+		const formatter = new Intl.DateTimeFormat({ dateStyle: 'short' });
+		const formatData = formatter.format(data);
+		//создаем строку даты для листа задач
+		const nowDate = `Дата: ${formatData}`;
+		console.log(nowDate);
+		return nowDate;
+	}
 
-	dataToDay.textContent = addData(currentDate);
+	dataToDay.textContent = formationDate(currentDate);
 
 	//функция, которая определяет день месяца
 	function returnDayOfTheMonth() {
