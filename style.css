@@ -16,16 +16,29 @@ body {
 	border-radius: 5px;
 	transition: background-color 0.3s ease-in-out;
 }
-
+/* класс фон для четных дней*/
 .even-day {
-	background-color: #ffebee; /*фон для четных дней*/
+	background-color: #ffebee; 
 }
-
-/* для заголовка */
-.container h1 {
-	font-size: 40px;
-	color: rgb(86, 85, 85);
+/* Для шапки */
+.header {
 	margin-bottom: 20px;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: baseline;
+}
+/* для даты */
+.header span {
+	font-style: italic;
+	color: rgb(120, 119, 119);
+	font-size: 16px;
+	border-bottom: 1.3px solid rgb(120, 119, 119);
+}
+/* для заголовка */
+.header h1 {
+	color: rgb(86, 85, 85);
+	font-size: 40px;	
 }
 /* для блока добавить задачу */
 .new-task {

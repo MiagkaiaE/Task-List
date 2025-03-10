@@ -4,6 +4,21 @@
 	const taskAdd = document.getElementById('taskAdd'); //нашли элемент кнопки Добавить задачу
 	const taskList = document.getElementById('taskList'); //нашли элемент списка задач
 	const containerTaskList = document.getElementById('containerTaskList');
+	const dataToDay = document.getElementById('dataToDay');//нашли элемент для даты
+	const currentDate = new Date(); //получили сегодняшнюю дату
+	
+	//функция, которая формирует дату
+	function addData(fullData) {
+		const day = fullData.getDate().toString().padStart(2, '0');//получаем день  месяца
+		const month = (fullData.getMonth() + 1).toString
+		().padStart(2, '0'); //получаем месяц(от 0 до 1) и прибавляем 1, чтобы получить правильное число месяца
+		const year = fullData.getFullYear();//получаем год
+		const numData = `Дата: ${day}-${month}-${year}`;
+		console.log(numData);
+		return numData;
+	};
+
+	dataToDay.textContent = addData(currentDate);
 
 	//функция, которая определяет день месяца
 	function returnDayOfTheMonth() {

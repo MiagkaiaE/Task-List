@@ -9,12 +9,16 @@
 </head>
 <body>
 	<div class="container" id="containerTaskList">
-		<h1>Список дел</h1>
-	<div class="new-task">
-		<input type="text" id='taskInput'>
-		<button id="taskAdd">Добавить задачу</button>
-	</div>
-	<div class="task-list" id="taskList"></div>
+		<header class="header">
+			<h1>Список дел</h1>
+			<!-- для даты -->
+			<span id="dataToDay" aria-live="polite"></span> 
+		</header>
+		<div class="new-task">
+			<input type="text" id='taskInput'>
+			<button id="taskAdd">Добавить задачу</button>
+		</div>
+		<div class="task-list" id="taskList"></div>
 	</div>
 </body>	
 </html>
