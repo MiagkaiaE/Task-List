@@ -6,33 +6,61 @@
 	const containerTaskList = document.getElementById('containerTaskList');
 	const dataToDay = document.getElementById('dataToDay');//нашли элемент для даты
 	const currentDate = new Date(); //получили сегодняшнюю дату
+	let currentDay = returnDayOfTheMonth(currentDate);//фиксируем день для setInterval
 	
-	// функция форматирование даты
-	function formationDate(data) {
+
+	//определяем фон при загрузке страницы
+	function defineBGColor(day) {
+		containerTaskList.classList.remove('even-day');
+		if (day % 2 === 0) {
+			containerTaskList.classList.add('even-day');
+		}
+		console.log('фон определен')
+	};
+	defineBGColor(currentDay);
+
+	//определяем дату при загрузке страницы
+
+	// функция форматирования даты
+	function formationDate(date) {
 		const formatter = new Intl.DateTimeFormat({ dateStyle: 'short' });
-		const formatData = formatter.format(data);
+		const formatDate = formatter.format(date);
 		//создаем строку даты для листа задач
-		const nowDate = `Дата: ${formatData}`;
+		const nowDate = `Дата: ${formatDate}`;
 		console.log(nowDate);
 		return nowDate;
 	}
-
+	//записываем дату в строку
 	dataToDay.textContent = formationDate(currentDate);
 
 	//функция, которая определяет день месяца
-	function returnDayOfTheMonth() {
-		// получаем актуальную дату
-		const curentDate = new Date();
+	function returnDayOfTheMonth(date) {
 		// получаем день из даты
-		const dayOfMonth = curentDate.getDate();
+		const dayOfMonth = date.getDate();
 		console.log(dayOfMonth);
 		return dayOfMonth;
 	}
 
-	// условие для выбора фона четного дня
-	if (returnDayOfTheMonth() % 2 === 0) {
-		containerTaskList.classList.add('even-day');
+	//функция для определения смены дня и фона
+	function chooseBackgroundColor(day) {
+		//получаем дату сейчас
+		const nowData = new Date();
+		//получаем число сейчас
+		const nowDay = returnDayOfTheMonth(nowData);
+		//спавниваем с сохраненным днем
+		if (nowDay !== day) {
+			//перезаписываем число дня в переменную
+			currentDay = nowDay;
+			//перезаписываем дату
+			dataToDay.textContent = formationDate(nowData);
+			//вызываем функцию определения фона в зависимости от четности
+			defineBGColor(currentDay);
+			console.log('сменились дата и фон')
+		}
 	}
+	//динамическая смена фона
+	setInterval(() =>chooseBackgroundColor(currentDay), 60000);
+
 	
 	//функция для проверки ввода
 	function inputValidation(input) {
