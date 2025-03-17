@@ -245,6 +245,7 @@
 		
 	};
 
+
 	taskAdd.addEventListener('click', function () {
 		//вызываем функцию для проверки ввода
 		// результат функции записываем в переменную taskText
