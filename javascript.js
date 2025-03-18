@@ -30,7 +30,7 @@
 
 		taskList.innerHTML = ''; // Очищаем текущий список
 		tasks.forEach(task => {
-			 const taskElement = createTask(task.text, task.done);
+			 const taskElement = createTask(task.text, task.done, task.id);
 			 taskList.appendChild(taskElement);
 		});
 		if (tasks.length === 0) {
@@ -178,11 +178,12 @@
 	};
 
 	//функция для создания задачи с обработчиками событий
-	function createTask(taskText, done = false) {
+	function createTask(taskText, done = false, id = null) {
 		//создаем div коробку для задачи
 		const newTask = document.createElement('div');
 		//добавляем к нему класс для дальнейшей стилизации
 		newTask.classList.add('style-task');
+		newTask.dataset.id = id; // Сохраняем id в DOM-элементе
 		// создаем параграф для текста задачи
 		const newTaskText = document.createElement('p')
 		// добавляем туда текст равной значению переменной taskText
@@ -208,7 +209,7 @@
 		// Простой обработчик для чекбокса
 		newTaskCheck.addEventListener('change', () => {
 			for (let i = 0; i < tasks.length; i++) {
-				 if (tasks[i].text === taskText) {
+				 if (tasks[i].id === id) { //поиск по id
 					  tasks[i].done = newTaskCheck.checked;
 					 localStorage.setItem("tasks", JSON.stringify(tasks));
 					 // Добавляем или убираем класс task-done в зависимости от состояния чекбокса
@@ -216,19 +217,24 @@
 						newTaskText.classList.add('task-done');
 				  } else {
 						newTaskText.classList.remove('task-done');
-				  }
+					 }
+					 newTaskCheck.classList.add('bounce');
 					 console.log("Статус задачи обновлён");
 					 // Сортируем и перерисовываем список после изменения статуса
-					 renderTasks();
+					 // Задерживаем вызов renderTasks, чтобы анимация успела завершиться
+                setTimeout(() => {
+						renderTasks();
+				  }, 300); // Длительность анимации — 0.3 секунды
 					  break;
 				 }
 			}
+
 	  });
 
 	  // Простой обработчик для кнопки удаления
 	  newTaskButton.addEventListener('click', () => {
 		for (let i = 0; i < tasks.length; i++) {
-			 if (tasks[i].text === taskText) {
+			 if (tasks[i].id === id) {
 				 newTask.classList.add('removing'); // Добавляем класс для анимации
 				//  код, который выполнится после плавного удаления задачи
 				  setTimeout(() => {
@@ -262,12 +268,13 @@
 // функция для добавления задачи по копке и по Enter
 	function addTask(text, tasks, input){
 			console.log('Кнопка нажата.Добавляем задачу')
+			const taskId = Date.now().toString(); // Генерируем уникальный id
 			//добавляем задачу в локал
-			tasks.push({ text: text, done: false });
+			tasks.push({ text: text, done: false, id: taskId });
 			localStorage.setItem("tasks", JSON.stringify(tasks));
 			console.log('задача добавлена в localStorage');
 			//вызываем функцию, которая создает элементы задачи
-			const newTask = createTask(text, false);
+			const newTask = createTask(text, false, taskId);
 			//вызываем функцию, которая добавлят задачу в лист задач и очищает поле ввода
 			addTaskToList(newTask, input);
 			renderTasks(); // Сортируем после добавления новой задачи

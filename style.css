@@ -201,7 +201,7 @@ button:hover {
 
 /* стиль для чекбокса */
 
-.style-task input[type = "checkbox"] {
+.style-task input[type = "checkbox"]{
 	transition: transform 0.3s; /*плавность для всех спецэффектов*/
 	accent-color: #B0C4DE80; /* сменили цвет нажатого чек бокса*/
 	transform: scale(1); /* Базовый масштаб */
@@ -211,7 +211,7 @@ button:hover {
 	transform: scale(1.1); /* Увеличение чекбокса на 10% */
 }
 
-.style-task input[type="checkbox"]:checked {
+.style-task input[type="checkbox"].bounce{
 	animation: AppAndDown 0.3s;
 	
 }
