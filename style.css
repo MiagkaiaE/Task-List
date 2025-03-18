@@ -15,11 +15,68 @@ body {
 	margin: 0 auto; /* центрируем контейнер*/
 	border-radius: 5px;
 	transition: background-color 0.3s ease-in-out;
+
 }
+
+/* для модального окна*/
+.modal-window {
+	display: none; /*по-умолчанию невидимое*/
+	top: 0;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	min-height: 100%;
+	text-align: center;
+	background: linear-gradient(45deg, rgba(86, 85, 85, 0.4), rgba(86, 85, 85, 0.1) );
+	/* настройки, когда моадльное окно станет видимым */
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+   transition: opacity 0.3s ease;
+}
+
+.modal-window-content {
+	width: 300px;
+	min-height: 180px;
+	text-align: center;
+	border: 1px solid grey;
+	border-radius: 5px;
+	background: linear-gradient(45deg, rgba(86, 85, 85, 0.2), rgba(86, 85, 85, 0.05));
+	box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	
+}
+/* стиль для показа модального окна */
+.show-modal {
+	/* делаем модальное окно видимым */
+	display: flex;
+
+}
+
+.modal-window p {
+	font-size: 25px;
+	font-weight: 600;
+	color: rgb(86, 85, 85);
+}
+
+.modal-window button {
+	width: 150px;
+	background: #ffffff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+
+}
+
+
 /* класс фон для четных дней*/
 .even-day {
 	background-color: #ffebee; 
 }
+
+
 /* Для шапки */
 .header {
 	margin-bottom: 20px;
@@ -120,6 +177,8 @@ button:hover {
 	border: 1px solid grey;
 	border-radius: 5px;
 	min-height: 100vh;
+	position: relative; /* Для корректного позиционирования задач */
+
 }
 
 
@@ -132,11 +191,17 @@ button:hover {
 	/* линия подчеркивания для задачи */
 	border-bottom: 1px solid gray;
 	padding-bottom: 5px; /* Отступ снизу между содержимым и линией */
+	position: relative; /* Для анимации задачи вниз */
+	transition: opacity 0.3s ease;/* Анимация для transform и opacity */
+}
+/* стиль для плавного удаления задачи */
+.style-task.removing {
+	opacity: 0; /* Скрываем при удалении */
 }
 
 /* стиль для чекбокса */
 
-.style-task input[type = "checkbox"] {
+.style-task input[type = "checkbox"]{
 	transition: transform 0.3s; /*плавность для всех спецэффектов*/
 	accent-color: #B0C4DE80; /* сменили цвет нажатого чек бокса*/
 	transform: scale(1); /* Базовый масштаб */
@@ -146,7 +211,7 @@ button:hover {
 	transform: scale(1.1); /* Увеличение чекбокса на 10% */
 }
 
-.style-task input[type="checkbox"]:checked {
+.style-task input[type="checkbox"].bounce{
 	animation: AppAndDown 0.3s;
 	
 }
