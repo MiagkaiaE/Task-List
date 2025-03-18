@@ -54,7 +54,7 @@ body {
 .show-modal {
 	/* делаем модальное окно видимым */
 	display: flex;
-	opacity: 1;
+
 }
 
 .modal-window p {
@@ -177,6 +177,7 @@ button:hover {
 	border: 1px solid grey;
 	border-radius: 5px;
 	min-height: 100vh;
+	position: relative; /* Для корректного позиционирования задач */
 
 }
 
@@ -190,6 +191,12 @@ button:hover {
 	/* линия подчеркивания для задачи */
 	border-bottom: 1px solid gray;
 	padding-bottom: 5px; /* Отступ снизу между содержимым и линией */
+	position: relative; /* Для анимации задачи вниз */
+	transition: opacity 0.3s ease;/* Анимация для transform и opacity */
+}
+/* стиль для плавного удаления задачи */
+.style-task.removing {
+	opacity: 0; /* Скрываем при удалении */
 }
 
 /* стиль для чекбокса */

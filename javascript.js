@@ -25,6 +25,9 @@
 
 	// Функция рендеринга задач
 	function renderTasks() {
+		// Сортируем задачи: невыполненные (done: false) — выше, выполненные (done: true) — ниже
+		tasks.sort((a, b) => a.done - b.done);
+
 		taskList.innerHTML = ''; // Очищаем текущий список
 		tasks.forEach(task => {
 			 const taskElement = createTask(task.text, task.done);
@@ -74,17 +77,24 @@
 		modalContent.append(textModalWindow, buttonModalWindow);
       modalWindow.appendChild(modalContent);
 		modalWindow.classList.add('show-modal');
+		console.log('Класс show-modal добавлен, содержимое:', modalWindow.innerHTML);
 
-		// Обработчик для кнопки с анимацией
+		// Сбрасываем opacity перед показом
+		modalWindow.style.opacity = '0'; // Начинаем с прозрачного состояния
+		modalWindow.classList.add('show-modal'); // Делаем видимым через display
+		setTimeout(() => {
+			 modalWindow.style.opacity = '1'; // Плавно показываем
+		}, 10); // Небольшая задержка для срабатывания transition
+  
 		buttonModalWindow.addEventListener('click', () => {
-			modalWindow.style.opacity = '0'; // Начинаем анимацию исчезновения
-			setTimeout(() => {
-				 modalWindow.classList.remove('show-modal'); // Скрываем после анимации
-				 if (onButtonClick && typeof onButtonClick === 'function') {
-					  onButtonClick();
-				 }
-			}, 300); // Задержка соответствует длительности анимации
-	  });
+			 modalWindow.style.opacity = '0'; // Плавно скрываем
+			 setTimeout(() => {
+				  modalWindow.classList.remove('show-modal'); // Убираем после анимации
+				  if (onButtonClick && typeof onButtonClick === 'function') {
+						onButtonClick();
+				  }
+			 }, 300); // Задержка соответствует длительности анимации
+		});
 		
 		console.log('модальное окно создано')
 		return modalWindow
@@ -207,8 +217,9 @@
 				  } else {
 						newTaskText.classList.remove('task-done');
 				  }
-				  console.log("Статус задачи обновлён");
-					  console.log("Статус задачи обновлён");
+					 console.log("Статус задачи обновлён");
+					 // Сортируем и перерисовываем список после изменения статуса
+					 renderTasks();
 					  break;
 				 }
 			}
@@ -216,19 +227,23 @@
 
 	  // Простой обработчик для кнопки удаления
 	  newTaskButton.addEventListener('click', () => {
-			for (let i = 0; i < tasks.length; i++) {
-				 if (tasks[i].text === taskText) {
-					  tasks.splice(i, 1);
-					  localStorage.setItem("tasks", JSON.stringify(tasks));
-					  newTask.remove();
-					  console.log('Задача удалена');
-					  if (tasks.length === 0) {
-						  showModal();
-					  }
-					  break;
-				 }
-			}
-	  });
+		for (let i = 0; i < tasks.length; i++) {
+			 if (tasks[i].text === taskText) {
+				 newTask.classList.add('removing'); // Добавляем класс для анимации
+				//  код, который выполнится после плавного удаления задачи
+				  setTimeout(() => {
+						tasks.splice(i, 1);
+						localStorage.setItem("tasks", JSON.stringify(tasks));
+						newTask.remove();
+						console.log('Задача удалена');
+						if (tasks.length === 0) {
+							 showModal();
+						}
+				  }, 300); // Задержка соответствует длительности анимации
+				  break;
+			 }
+		}
+  });
 	return newTask
 	};
 
@@ -244,43 +259,37 @@
 		console.log('поле очищено');
 		
 	};
+// функция для добавления задачи по копке и по Enter
+	function addTask(text, tasks, input){
+			console.log('Кнопка нажата.Добавляем задачу')
+			//добавляем задачу в локал
+			tasks.push({ text: text, done: false });
+			localStorage.setItem("tasks", JSON.stringify(tasks));
+			console.log('задача добавлена в localStorage');
+			//вызываем функцию, которая создает элементы задачи
+			const newTask = createTask(text, false);
+			//вызываем функцию, которая добавлят задачу в лист задач и очищает поле ввода
+			addTaskToList(newTask, input);
+			renderTasks(); // Сортируем после добавления новой задачи
+		}
 
-
-	taskAdd.addEventListener('click', function () {
+	taskAdd.addEventListener('click',() => {
 		//вызываем функцию для проверки ввода
 		// результат функции записываем в переменную taskText
 		const taskText = inputValidation(taskInput);
 
 		if (taskText) {
-			console.log('Кнопка нажата.Добавляем задачу')
-			//добавляем задачу в локал
-			tasks.push({ text: taskText, done: false });
-			localStorage.setItem("tasks", JSON.stringify(tasks));
-			console.log('задача добавлена в localStorage');
-			//вызываем функцию, которая создает элементы задачи
-			const newTask = createTask(taskText, false);
-			//вызываем функцию, которая добавлят задачу в лист задач и очищает поле ввода
-			addTaskToList(newTask, taskInput);
+			addTask(taskText, tasks, taskInput);
 		}
-
 	});
 
 	// добавить задачу по Enter
 	document.addEventListener('keydown', (e) => {
 		if (e.key === 'Enter') {
 			const taskText = inputValidation(taskInput);
-
-		if (taskText) {
-			console.log('Кнопка нажата.Добавляем задачу')
-			//добавляем задачу в локал
-			tasks.push({ text: taskText, done: false });
-			localStorage.setItem("tasks", JSON.stringify(tasks));
-			console.log('задача добавлена в localStorage');
-			//вызываем функцию, которая создает элементы задачи
-			const newTask = createTask(taskText, false);
-			//вызываем функцию, которая добавлят задачу в лист задач и очищает поле ввода
-			addTaskToList(newTask, taskInput);
-		}
+			if (taskText) {
+				addTask(taskText, tasks, taskInput);
+			}
 		}
 	});
 
