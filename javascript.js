@@ -150,7 +150,8 @@
 		}
 	}
 	//динамическая смена фона
-	setInterval(() =>chooseBackgroundColor(currentDay), 60000);
+	setInterval(() => chooseBackgroundColor(currentDay), 60000);
+	
 
 	
 	//функция для проверки ввода
